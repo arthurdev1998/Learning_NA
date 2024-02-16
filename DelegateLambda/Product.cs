@@ -1,5 +1,8 @@
 namespace DelegateLambda;
 
+delegate double BinaryNumericOperation(double n1, double n2);
+
+
 public class Product /*: IComparable<Product>*/
 {
     public string? Name { get; set; }
