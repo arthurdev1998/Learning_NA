@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoMVC.Models.ViewModels;
 
+[Table("Departament")]
 public class Departaments
 {
     public Departaments()
@@ -16,8 +18,12 @@ public class Departaments
     }
 
     [Key]
+    [Column("id")]
     public int Id { get; set; }
+
+    [Column("name")]
     public string? Name { get; set; }
+    
     public ICollection<Seller> Sellers { get; set; } = [];
 
     public void AddSeller(Seller sr)

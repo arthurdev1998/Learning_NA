@@ -1,19 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using ProjetoMVC.Models.ViewModels;
+using ProjetoMVC.Services;
 
-namespace ProjetoMVC.Controllers
+namespace ProjetoMVC.Controllers;
+
+[Route("[controller]")]
+public class SellersController : Controller
 {
-    [Route("[controller]")]
-    public class SellersController : Controller
+    private readonly SellerService _sellerService;
+
+    public SellersController(SellerService sellerService)
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _sellerService = sellerService;
+    }
+
+    [HttpGet("/index")]
+    public IActionResult Index()
+    {
+        return View(_sellerService.GetAllSellers());
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Seller seller)
+    {
+        _sellerService.Create(seller);
+        return RedirectToAction(nameof(Index));
     }
 }

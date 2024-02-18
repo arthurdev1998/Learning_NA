@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoMVC.Data;
+using ProjetoMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProjetoMVCContext>(options =>
@@ -8,11 +9,12 @@ builder.Services.AddDbContext<ProjetoMVCContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
     app.UseExceptionHandler("/Home/Error");
@@ -22,7 +24,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+ 
 app.UseRouting();
 
 app.UseAuthorization();

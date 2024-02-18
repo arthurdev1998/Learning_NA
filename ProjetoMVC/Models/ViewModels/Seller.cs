@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ProjetoMVC.Models.ViewModels;
 
+[Table("seller")]
 public class Seller
 {
     public Seller()
@@ -7,7 +10,7 @@ public class Seller
 
     }
 
-    public Seller(int id, string name, string email, DateTime birthday, double baseSalary, Departaments departaments)
+    public Seller(int id, string name, string email, DateTime? birthday, double baseSalary, Departaments departaments)
     {
         Id = id;
         Name = name;
@@ -17,13 +20,29 @@ public class Seller
         Departament = departaments;
     }
 
+
+    [Column("id")]
     public int Id { get; set; }
+
+    [Column("name")]
     public string? Name { get; set; }
+
+    [Column("email")]
     public string? Email { get; set; }
-    public DateTime Birthdate { get; set; }
+
+    [Column("birthdate")]
+    public DateTime? Birthdate { get; set; }
+
+    [Column("base_salary")]
     public double BaseSalary { get; set; }
+
+    [ForeignKey("departament")]
+    public int DepartamentId { get; set; }
+
     public Departaments? Departament { get; set; }
+
     public ICollection<SalesRecord> Sales { get; set; } = [];
+
 
     public void AddSales(SalesRecord sale)
     {

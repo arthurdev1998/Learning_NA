@@ -11,8 +11,6 @@ namespace ProjetoMVC.Controllers
     [Route("[controller]")]
     public class DepartamentController : Controller
     {
-        private readonly ILogger<DepartamentController> _logger;
-
         public IActionResult Index()
         {
             return View();
