@@ -41,6 +41,7 @@ public class Seller
 
     public Departaments? Departament { get; set; }
 
+    [Column("id")]
     public ICollection<SalesRecord> Sales { get; set; } = [];
 
 
